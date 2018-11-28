@@ -1,10 +1,7 @@
 package cn.tomxin.jiandan_house.controller;
 
-import cn.tomxin.jiandan_house.entity.QQInfo;
 import cn.tomxin.jiandan_house.entity.Record;
-import cn.tomxin.jiandan_house.entity.User;
 import cn.tomxin.jiandan_house.service.RecordService;
-import cn.tomxin.jiandan_house.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

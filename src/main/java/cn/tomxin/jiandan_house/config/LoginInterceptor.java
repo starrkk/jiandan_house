@@ -1,6 +1,5 @@
 package cn.tomxin.jiandan_house.config;
 
-
 import cn.tomxin.jiandan_house.util.JwtToken;
 import com.auth0.jwt.interfaces.Claim;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -10,16 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
+/**
+  * @Description: 用户校验拦截器
+  * @author: tomxin
+  * @date: 2018/11/28 11:17
+  * @Version 1.0
+ **/
 public class LoginInterceptor implements HandlerInterceptor {
 
-//    public ThreadLocal<String> UserInfo = new ThreadLocal<String>();
     /**
      * 进入controller层之前拦截请求
-     * @param httpServletRequest
-     * @param httpServletResponse
-     * @param o
-     * @return
-     * @throws Exception
      */
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
@@ -29,8 +28,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             throw new IllegalArgumentException("token不能为空");
         }
         //验证token
-        Map<String, Claim>  claimMap = JwtToken.verifyToken(access_token);
-//        UserInfo.set(claimMap.get("openId").asString());
+        JwtToken.verifyToken(access_token);
         return true;
 
     }

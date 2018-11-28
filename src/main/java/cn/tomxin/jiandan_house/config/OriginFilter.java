@@ -8,14 +8,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 处理跨域问题
- *
- */
+  * @Description: 处理跨域问题
+  * @author: tomxin
+  * @date: 2018/11/28 11:18
+  * @Version 1.0
+ **/
 @Component
 public class OriginFilter implements Filter {
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
 
     }
 
@@ -34,8 +36,6 @@ public class OriginFilter implements Filter {
 
     @Override
     public void destroy() {
-        // TODO Auto-generated method stub
-
     }
 
 }

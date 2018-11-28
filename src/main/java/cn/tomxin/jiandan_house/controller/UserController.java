@@ -4,7 +4,10 @@ import cn.tomxin.jiandan_house.entity.QQInfo;
 import cn.tomxin.jiandan_house.entity.User;
 import cn.tomxin.jiandan_house.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Description: 用户相关
@@ -19,10 +22,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
     /**
      * 用户登录，调用QQ
-     * @param
+     * @param qqInfo QQ登录信息
      * @return
+     * @throws Exception
      */
     @PostMapping
     public User login(@RequestBody QQInfo qqInfo) throws Exception {
