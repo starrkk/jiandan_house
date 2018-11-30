@@ -1,9 +1,14 @@
 package cn.tomxin.jiandan_house.controller;
 
+import cn.tomxin.jiandan_house.entity.ListParam;
 import cn.tomxin.jiandan_house.entity.Record;
 import cn.tomxin.jiandan_house.service.RecordService;
+import cn.tomxin.jiandan_house.util.JwtToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Description: 记录控制器
@@ -30,8 +35,30 @@ public class RecordController {
         return recordService.save(record);
     }
 
+    /**
+     * 修改记录
+     * @param record
+     * @return
+     * @throws Exception
+     */
     @PatchMapping
-    private Record update(@RequestBody Record record) throws Exception {
+    public Record update(@RequestBody Record record) throws Exception {
         return recordService.update(record);
+    }
+
+    /**
+     * 查询记录
+     * @param listParam
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @GetMapping
+    public Page<Record> list(ListParam listParam, HttpServletRequest request) throws Exception {
+
+        //从request中提取openId
+        String openId = JwtToken.getUserOpenId(request);
+
+        return recordService.findAllByOpenId(openId ,listParam);
     }
 }

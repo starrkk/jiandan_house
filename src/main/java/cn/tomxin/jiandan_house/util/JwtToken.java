@@ -6,7 +6,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,8 +28,8 @@ public class JwtToken {
         Date iatDate = new Date();
         // 过期时间
         Calendar nowTime = Calendar.getInstance();
-        //数字代表几分钟过期
-        nowTime.add(Calendar.MINUTE,60);
+        //数字代表几分钟过期/7天后过期
+        nowTime.add(Calendar.MINUTE,60*24*7);
         Date expiresDate = nowTime.getTime();
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("alg","HS256");
@@ -58,5 +60,18 @@ public class JwtToken {
             throw new RuntimeException("token 验证失败");
         }
         return jwt.getClaims();
+    }
+
+    /**
+     * 获取用户的openid
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    public static String getUserOpenId(HttpServletRequest request) throws Exception {
+        String access_token = request.getHeader("Authorization");
+        Map<String, Claim> tokenMap = JwtToken.verifyToken(access_token);
+        String openId = tokenMap.get("openId").asString();
+        return openId;
     }
 }

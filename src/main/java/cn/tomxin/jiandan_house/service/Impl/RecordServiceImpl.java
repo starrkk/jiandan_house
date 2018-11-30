@@ -1,16 +1,18 @@
 package cn.tomxin.jiandan_house.service.Impl;
 
+import cn.tomxin.jiandan_house.entity.ListParam;
 import cn.tomxin.jiandan_house.entity.Record;
 import cn.tomxin.jiandan_house.repository.RecordRepository;
 import cn.tomxin.jiandan_house.service.RecordService;
 import cn.tomxin.jiandan_house.util.BeanUtil;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class RecordServiceImpl implements RecordService {
@@ -26,9 +28,13 @@ public class RecordServiceImpl implements RecordService {
      * @return
      */
     @Override
-    public List<Record> findAllByOpenId(String openId) {
+    public Page<Record> findAllByOpenId(String openId, ListParam listParam) {
 
-        return recordRepository.findRecordsByOpenId(openId);
+        //分页获取
+        Sort sort = new Sort(Sort.Direction.DESC, "createTime");
+        Pageable pageable = new PageRequest(listParam.getPageNum(), listParam.getPageSize(), sort);
+        Page<Record> records = recordRepository.findAllByOpenId(openId, pageable);
+        return records;
     }
 
     @Override

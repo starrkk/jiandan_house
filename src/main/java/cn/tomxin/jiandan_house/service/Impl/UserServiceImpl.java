@@ -1,5 +1,6 @@
 package cn.tomxin.jiandan_house.service.Impl;
 
+import cn.tomxin.jiandan_house.entity.ListParam;
 import cn.tomxin.jiandan_house.entity.QQInfo;
 import cn.tomxin.jiandan_house.entity.Record;
 import cn.tomxin.jiandan_house.entity.User;
@@ -9,9 +10,8 @@ import cn.tomxin.jiandan_house.util.HttpClientHelper;
 import cn.tomxin.jiandan_house.util.JwtToken;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author tomxin
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         }else{
             //如果已经登陆过，查询他的记录列表
-            List<Record> recordList = recordService.findAllByOpenId(qqInfo.getOpenId());
+            Page<Record> recordList = recordService.findAllByOpenId(qqInfo.getOpenId(), new ListParam());
             user.setRecordList(recordList);
         }
         //生成token

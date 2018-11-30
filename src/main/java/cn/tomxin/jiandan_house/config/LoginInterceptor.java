@@ -22,6 +22,12 @@ public class LoginInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+        //OPTIONS直接释放
+        if (httpServletRequest.getMethod().equals("OPTIONS")){
+            httpServletResponse.setStatus(HttpServletResponse.SC_OK);
+            return true;
+        }
+
         String access_token = httpServletRequest.getHeader("Authorization");
 
         if (access_token == null){

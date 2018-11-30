@@ -1,12 +1,12 @@
 package cn.tomxin.jiandan_house.service;
 
+import cn.tomxin.jiandan_house.entity.ListParam;
 import cn.tomxin.jiandan_house.entity.Record;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface RecordService {
 
-    List<Record> findAllByOpenId(String openId);
+    Page<Record> findAllByOpenId(String openId, ListParam listParam);
 
     Record save(Record record);
 

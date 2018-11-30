@@ -1,10 +1,10 @@
 package cn.tomxin.jiandan_house.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.domain.Page;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * 用户信息
@@ -25,15 +25,19 @@ public class User {
     private String nickName;
 
     @Column(columnDefinition = "varchar(2) COMMENT '性别'")
+    @JsonIgnore
     private String gender;
 
     @Column(columnDefinition = "varchar(10) COMMENT '省份'")
+    @JsonIgnore
     private String province;
 
     @Column(columnDefinition = "varchar(10) COMMENT '城市'")
+    @JsonIgnore
     private String city;
 
     @Column(columnDefinition = "varchar(10) COMMENT '年龄'")
+    @JsonIgnore
     private String year;
 
     @Transient
@@ -42,6 +46,6 @@ public class User {
      * 记录列表
      */
     @Transient
-    private List<Record> recordList;
+    private Page<Record> recordList;
 
 }
