@@ -30,7 +30,10 @@ public class RecordController {
      * @return
      */
     @PostMapping
-    public Record save(@RequestBody Record record){
+    public Record save(@RequestBody Record record, HttpServletRequest request) throws Exception {
+        //从request中提取openId
+        String openId = JwtToken.getUserOpenId(request);
+        record.setOpenId(openId);
 
         return recordService.save(record);
     }
